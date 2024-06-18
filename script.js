@@ -33,21 +33,25 @@ musicaFocoInput.addEventListener('change', () => {
 })
 
 focoButton.addEventListener('click', () => {
+    timerEmSegundos = 1500;
     alterarContexto('foco');
     focoButton.classList.add('active');
 })
 
 curtoButton.addEventListener('click', () => {
+    timerEmSegundos = 300;
     alterarContexto('descanso-curto');
     curtoButton.classList.add('active');
 })
 
 longoButton.addEventListener('click', () => {
+    timerEmSegundos = 900;
     alterarContexto('descanso-longo');
     longoButton.classList.add('active');
 })
 
 function alterarContexto(contexto) {
+    exibirTimerNaTela();
     botoes.forEach(function (contexto) {
         contexto.classList.remove('active');
     })
@@ -81,7 +85,6 @@ function alterarContexto(contexto) {
 const contagemRegressiva = () => {
     if (timerEmSegundos <= 0) {
         somBeep.play();
-        alert ('tempo finalizado');
         zerar();
         return
     }
