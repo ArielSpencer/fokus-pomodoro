@@ -1,18 +1,28 @@
 const html = document.querySelector('html')
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
-const timer = document.querySelector('#timer');
+
+// Timer
+let timerEmSegundos = 1500
+const startPauseButton = document.querySelector('#start-pause');
+let intervaloID = null;
+const exibirTimer = document.querySelector('#timer')
 
 // Botões
 const botoes = document.querySelectorAll('.app__card-button')
 const focoButton = document.querySelector('.app__card-button--foco');
 const curtoButton = document.querySelector('.app__card-button--curto');
 const longoButton = document.querySelector('.app__card-button--longo');
+const iniciarOuPausarButton = document.querySelector('#start-pause  span');
 
 // Músicas
 const musicaFocoInput = document.querySelector('#alternar-musica');
 const musica = new Audio ('/sons/luna-rise-part-one.mp3');
 musica.loop = true;
+const somPlay = new Audio ('/sons/play.wav');
+const somPause = new Audio ('/sons/pause.mp3');
+const somBeep = new Audio ('/sons/beep.mp3');
+
 
 musicaFocoInput.addEventListener('change', () => {
     if(musica.paused) {
@@ -67,3 +77,41 @@ function alterarContexto(contexto) {
             break;
     }
 }
+
+const contagemRegressiva = () => {
+    if (timerEmSegundos <= 0) {
+        somBeep.play();
+        alert ('tempo finalizado');
+        zerar();
+        return
+    }
+    timerEmSegundos -= 1;
+    exibirTimerNaTela();
+}
+
+startPauseButton.addEventListener('click', iniciarOuPausar);
+
+function iniciarOuPausar() {
+    if (intervaloID) {
+        somPause.play();
+        zerar();
+        return
+    }
+    intervaloID = setInterval(contagemRegressiva, 1000);
+    somPlay.play();
+    iniciarOuPausarButton.textContent = ('Pausar')
+}
+
+function zerar() {
+    iniciarOuPausarButton.textContent = ('Começar')
+    clearInterval(intervaloID);
+    intervaloID = null;
+}
+
+function exibirTimerNaTela() {
+    const tempo = new Date(timerEmSegundos * 1000)
+     const tempoFormatado = tempo.toLocaleTimeString('pt-br', {minute: '2-digit', second: '2-digit'});
+    exibirTimer.innerHTML = `${tempoFormatado}`
+}
+
+exibirTimerNaTela();
