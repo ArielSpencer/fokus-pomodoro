@@ -89,6 +89,14 @@ function alterarContexto(contexto) {
 const contagemRegressiva = () => {
     if (timerEmSegundos <= 0) {
         somBeep.play();
+        // Inicio broadcast: evento customizado (FocoFinalizado) = indicar tarefa finalizada em modo foco
+        const focoAtivo = html.getAttribute('data-contexto') == 'foco'
+        if(focoAtivo) {
+            const evento = new CustomEvent('FocoFinalizado')
+            document.dispatchEvent(evento)
+        }
+        // Final broadcast
+
         zerar();
         return
     }
