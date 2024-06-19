@@ -1,4 +1,4 @@
-<img src="./assets/banner-pomodoro-ariel-spencer-alura.png" alt="Banner do aplicativo Pomodoro exibido em um iphone, macbook e tablet com contador e lista de tarefas">
+<img src="./imagens/banner-pomodoro-ariel-spencer-alura.png" alt="Banner do aplicativo Pomodoro exibido em um iphone, macbook e tablet com contador e lista de tarefas">
 
 # <img src="https://cdn-icons-png.flaticon.com/512/877/877712.png" width=26> Fokus Pomodoro
 
