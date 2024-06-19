@@ -379,6 +379,10 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
+.app_button-remove {
+    margin-left: 1em;
+}
+
 .app__section-active-task-label {
     font-family: Montserrat;
     font-size: 1.25rem;
@@ -396,9 +400,10 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 0;
     border-radius: 0.8rem;
-    background: var(--fundo-card);
+    border: 0.2rem solid var(--azul-royal);
+    background: var(--fundo-card-timer);
     margin-bottom: 0.8rem;
     padding: 1.6rem;
     box-sizing: border-box;
@@ -407,12 +412,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .app__section-task-list-item-description {
     flex-grow: 1;
-    margin: 0;
+    margin: 0 2em;
     font-size: 1.8rem;
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
-    color: var(--azul-profundo);
+    color: var(--color-secondary);
     font-family: Montserrat;
 }
 
@@ -431,6 +436,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .app__form-add-task {
     padding: 1.6rem;
+    border: 0.15rem solid var(--fundo-card);
     border-radius: 0.8rem;
     background: var(--fundo-card);
     font-size: 1.8rem;

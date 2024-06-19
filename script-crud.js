@@ -47,13 +47,21 @@ function criarElementoTarefa(tarefa) {
     paragrafo.classList.add('app__section-task-list-item-description')
 
     const button = document.createElement('button')
-    const imagemButton = document.createElement('img')
+    const removeButton = document.createElement('removeButton')
+    const imagemEditButton = document.createElement('img')
+    const imagemRemoveButton = document.createElement('img')
 
-    imagemButton.setAttribute('src', '/imagens/edit.png')
-
-    button.append(imagemButton)
+    imagemEditButton.setAttribute('src', '/imagens/edit.png')
+    
+    button.append(imagemEditButton)
     button.classList.add('app_button-edit')
 
+    imagemRemoveButton.setAttribute('src', '/imagens/remove.png')
+    
+    removeButton.append(imagemRemoveButton)
+    removeButton.classList.add('app_button-remove')
+
+    // Adicionar Tarefa na lista e localStorage
     button.onclick = () => {
         const novaDescricao = prompt('Qual é o novo nome da tarefa?');
 
@@ -64,9 +72,34 @@ function criarElementoTarefa(tarefa) {
         }
     }
 
+   // Alterar o status da tarefa pelo svg de check
+   svg.onclick = () => {
+    if (tarefa.completa) {
+        // Marcar como não concluída
+        li.classList.remove('app__section-task-list-item-complete');
+        li.querySelector('.app_button-edit').removeAttribute('disabled');
+        tarefa.completa = false;
+    } else {
+        // Marcar como concluída
+        li.classList.add('app__section-task-list-item-complete');
+        li.querySelector('.app_button-edit').setAttribute('disabled', 'disabled');
+        tarefa.completa = true;
+    }
+    atualizarTarefas();
+}
+
+    // Remover a tarefa da lista e do localStorage
+    removeButton.onclick = () => {
+        listaDeTarefas = listaDeTarefas.filter(t => t !== tarefa);
+        atualizarTarefas();
+    
+        li.remove();
+    }
+
     li.append(svg);
     li.append(paragrafo);
     li.append(button);
+    li.append(removeButton);
 
     if (tarefa.completa) {
         li.classList.add('app__section-task-list-item-complete')
@@ -97,7 +130,7 @@ function criarElementoTarefa(tarefa) {
     return li
 }
 
-// Ao clicar no botão deletar limpar textArea
+// Ao clicar no botão deletar do form limpar textArea
 deletarTarefaForm.addEventListener('click', () => {
     limparTextArea();
 })
@@ -156,6 +189,16 @@ const removerTarefas = (somenteCompletas) => {
     })
     listaDeTarefas = somenteCompletas ? listaDeTarefas.filter(tarefa => !tarefa.completa) : []
     atualizarTarefas()
+}
+
+const removerTarefaSelecionada = (somenteCompletas) => {
+    const seletor = somenteCompletas ? '.app__section-task-list-item-complete' : '.app__section-task-list-item'
+    document.querySelectorAll(seletor).forEach(elemento => {
+        elemento.remove()
+    })
+    listaDeTarefas = somenteCompletas ? listaDeTarefas.filter(tarefa => !tarefa.completa) : []
+    atualizarTarefas()
+    limparTextArea()
 }
 
 removerConcluidasButton.onclick = () => removerTarefas(true)
